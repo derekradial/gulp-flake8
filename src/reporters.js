@@ -3,7 +3,7 @@
 
 const c = require('chalk');
 const gulpUtilLog = require('fancy-log');
-const gulpUtilPluginError = require('plugin-error')
+const gulpUtilPluginError = require('plugin-error');
 const map = require('map-stream');
 
 // Consts
