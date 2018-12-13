@@ -2,7 +2,8 @@
 'use strict';
 
 const c = require('chalk');
-const gulpUtil = require('gulp-util');
+const gulpUtilLog = require('gutil.log');
+const gulpUtilPluginError = require('gutil.PluginError')
 const map = require('map-stream');
 
 // Consts
@@ -24,7 +25,7 @@ exports.fancyReporter = result => {
     const msg = `${c.cyan(filenamePrint)} ` +
                 `${c.magenta(`${error.row}:${error.column}`)} ` +
                 `${c.red(error.reason)}`;
-    gulpUtil.log(msg);
+    gulpUtilLog(msg);
   });
 };
 
@@ -34,7 +35,7 @@ exports.originalReporter = result => {
     const filenamePrint = error.filename.replace(`${cwd}`, '.');
 
     const msg = `${filenamePrint} ${error.row}:${error.column}: ${error.reason}`;
-    gulpUtil.log(msg);
+    gulpUtilLog(msg);
   });
 };
 
@@ -55,7 +56,7 @@ exports.reporter = paramReporter => {
   }
 
   if (typeof reporter === 'undefined') {
-    throw new gulpUtil.PluginError(PLUGIN_NAME, `Invalid reporter ${reporter}`);
+    throw new gulpUtilPluginError(PLUGIN_NAME, `Invalid reporter ${reporter}`);
   }
 
   return map((result, cb) => {
