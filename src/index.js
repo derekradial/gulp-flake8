@@ -1,8 +1,8 @@
 // noinspection Eslint
 'use strict';
 
-const gulpUtilPluginError = require('gutil.PluginError');
-const gulpUtilLog = require('gutil.Log');
+const gulpUtilPluginError = require('plugin-error');
+const gulpUtilLog = require('fancy-log');
 const through = require('through2');
 const spawn = require('child_process').spawn;
 const es = require('event-stream');
