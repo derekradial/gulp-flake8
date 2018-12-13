@@ -1,7 +1,8 @@
 // noinspection Eslint
 'use strict';
 
-const gulpUtil = require('gulp-util');
+const gulpUtilPluginError = require('gutil.PluginError');
+const gulpUtilLog = require('gutil.Log');
 const through = require('through2');
 const spawn = require('child_process').spawn;
 const es = require('event-stream');
@@ -77,7 +78,7 @@ const gulpFlake8 = paramOptions => {
       }
     }
     if (msg) {
-      pluginError = new gulpUtil.PluginError(PLUGIN_NAME, msg);
+      pluginError = new gulpUtilPluginError(PLUGIN_NAME, msg);
     }
 
     return pluginError;
@@ -93,7 +94,7 @@ const gulpFlake8 = paramOptions => {
       if (file.path) {
         files.push(file);
       } else {
-        stream.emit('error', new gulpUtil.PluginError(PLUGIN_NAME, 'File provided with no path'));
+        stream.emit('error', new gulpUtilPluginError(PLUGIN_NAME, 'File provided with no path'));
       }
     }
   }
@@ -106,7 +107,7 @@ const gulpFlake8 = paramOptions => {
     const execOptions = args.concat(filePaths);
     const spawnBin = execOptions.shift();
 
-    // gulpUtil.log(bin + ' ' + execOptions.join(' '));
+    // gulpUtilLog(bin + ' ' + execOptions.join(' '));
 
     // Run Flake8
     return spawn(spawnBin, execOptions, {
@@ -161,7 +162,7 @@ gulpFlake8.failOnError = () => through.obj((result, enc, cb) => {
     cb(null, result);
     return;
   }
-  cb(new gulpUtil.PluginError(
+  cb(new gulpUtilPluginError(
     'gulp-flake8',
     {
       name: 'Flake8Error',
